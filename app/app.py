@@ -13,8 +13,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(chat.router, prefix="/api/v1/chat", tags=["chat"])
-app.include_router(documents.router, prefix="/api/v1/documents", tags=["documents"])
+app.include_router(chat.router, prefix="/api/v1", tags=["chat"])
+app.include_router(documents.router, prefix="/api/v1", tags=["documents"])
 
-app.include_router(chat.router, prefix="/api/latest/chat", tags=["chat"])
-app.include_router(documents.router, prefix="/api/latest/documents", tags=["documents"])
+app.include_router(chat.router, prefix="/api/latest", tags=["chat"])
+app.include_router(documents.router, prefix="/api/latest", tags=["documents"])

@@ -29,4 +29,4 @@ class PDFProcessor:
     
 if __name__ == "__main__":
     chunk = PDFProcessor.split('notebooks/2408-09869v5.pdf')
-    print(len(chunk))
+    print(chunk[0])

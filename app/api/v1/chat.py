@@ -13,7 +13,7 @@ def get_rag_service() -> RAGService:
     tracer = Tracer()
     return RAGService(llm, retriever, tracer)
 
-@router.post("/", response_model=ChatResponse)
+@router.post("/chat", response_model=ChatResponse)
 async def chat_query(
     request: ChatRequest,
     rag_service: RAGService = Depends(get_rag_service)
