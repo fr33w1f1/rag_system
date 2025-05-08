@@ -1,4 +1,4 @@
-#I Built Every Block of A RAG System to Learn It All
+# I Built Every Block of A RAG System to Learn It All
 ![RAG Architecture Diagram](docs/rag_architecture.png)
 ## What is it
 
@@ -97,9 +97,7 @@ Building Every block of RAG system for learning
 │   └── evaluation/            # Quality metrics
 │       └── ragas_eval.py      # Ragas integration
 │
-├── data/                      # ETL Pipelines
-│   ├── loaders/               # Document loaders
-│   └── transformers/          # Data converters
+├── data/                      # Data Storage
 │
 ├── scripts/                   # Operational scripts
 │   ├── ingest.py              # Bulk ingestion
