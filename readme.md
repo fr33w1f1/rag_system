@@ -1,4 +1,4 @@
-# Got Rejected from a Freelance RAG for Not Knowing How To Customize. I Built Every Block of The System to Learn It All
+#I Built Every Block of A RAG System to Learn It All
 ![RAG Architecture Diagram](docs/rag_architecture.png)
 ## What is it
 
@@ -22,25 +22,27 @@ Building Every block of RAG system for learning
 
 ### RAG-Specific Learnings
 - **Document Processing and Chunking Matter**:
-  - PyMuPDF4LLM faster than docling. More to try: Markitdown, MinerU... 
-  - Header Markdown preserves and gives more context to each chunk
+  - PyMuPDF4LLM is faster than docling. More to try: Markitdown, MinerU... 
+  - Header Markdown preserves and gives more context to each chunk and between chunks
 
 - **Vector DB**:
     - Qdrant has more advanced search and filter
-    - Chroma for simplicity and fast prototype project 
-    - Should try Milvus (pretty much the same as Qdrant at small-scale project) 
+    - Chroma for simplicity and fast for prototype projects
+    - Should try Milvus (pretty much the same as Qdrant for a small-scale project) 
 
 - **Retrieval Optimization**:
-  - Can find the embedding model at https://huggingface.co/spaces/mteb/leaderboard
-  - Hybrid search (Dense + BM25). But sometimes metadata filtering then vector search works well
+  - Find the embedding model at https://huggingface.co/spaces/mteb/leaderboard
+  - Hybrid search (Dense + BM25) (is already in Qdrant). But sometimes metadata filtering then vector search work well
   - Reranking using Cohere API (can switch to local reranker like bge-reranker)
+  - Not always, but Query expansion (rewrite the question into 1 or more) HyDE can work
+  - Caching the most frequent Q&A pair for fast retrieval. Fuzzy matching is perfectly enough for my case
 
 - **Memory**:
-  - Some last messages should enough for short term memory. Sqlite should be fine
+  - Some last messages should be enough for short-term memory. SQLite should be fine
   - [mem0.ai](https://mem0.ai/) for more sophisticated memory management
 
 - **Evaluation**:
-  - Ragas metrics, use LLM as a Judge. Also can simply use cosine similarity. Final evaluator should be human 
+  - Ragas metrics, use LLM as a Judge. Can also simply use cosine similarity. The final evaluator should be human 
   - Langfuse Tracing. New version of Mlflow can do it too
 
 
