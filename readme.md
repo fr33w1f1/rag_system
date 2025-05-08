@@ -110,18 +110,3 @@ Building Every block of RAG system for learning
     ├── docker-compose.yml     # Qdrant/Langfuse
     └── Dockerfile             # App container
 ```
-
-## Techniques Implemented
-
-### 1. Document Processing Pipeline
-- **PDF-to-Markdown Conversion**: Preserves document structure using `pymupdf4llm`
-- **Hierarchical Header Chunking**: Header-aware splitting (H1/H2/H3)
-- **Metadata Enrichment**: Page numbers, source tracking, header context
-
-### 2. Retrieval Optimization
-| Technique | Implementation | Benefit |
-|-----------|----------------|---------|
-| Hybrid Search | Qdrant BM25 + Vector | Combines lexical/semantic search |
-| Query Expansion | LLM-generated variants | Broader recall |
-| Cross-Encoder Reranking | MiniLM-L-6-v2 | Precision optimization |
-| Header Boosting | Score adjustment | Context-aware ranking |
