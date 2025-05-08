@@ -17,4 +17,4 @@ class OpenAIEmbedding(BaseEmbeddingModel):
 
 if __name__ == "__main__":
     emb = OpenAIEmbedding()
-    print(emb.embed('this is a abc'))
+    print(len(emb.embed('this is a abc')))
