@@ -29,14 +29,15 @@ Building Every block of RAG system for learning
 - **Vector DB**:
     - Qdrant has more advanced search and filter
     - Chroma for simplicity and fast for prototype projects
-    - Should try Milvus (pretty much the same as Qdrant for a small-scale project) 
+    - Should try Milvus (pretty much the same as Qdrant for a small-scale project) w
+    - Postgre + PGVector also make a great combo
 
 - **Retrieval Optimization**:
   - Find the embedding model at https://huggingface.co/spaces/mteb/leaderboard
   - Hybrid search (Dense + BM25) (is already in Qdrant). But sometimes metadata filtering then vector search work well
   - Reranking using Cohere API (can switch to local reranker like bge-reranker)
   - Not always, but Query expansion (rewrite the question into 1 or more) HyDE can work
-  - Caching the most frequent Q&A pair for fast retrieval. Fuzzy matching is perfectly enough for my case
+  - Caching the most frequent Q&A pair for fast retrieval. Fuzzy matching is enough for my case
 
 - **Memory**:
   - Some last messages should be enough for short-term memory. SQLite should be fine
