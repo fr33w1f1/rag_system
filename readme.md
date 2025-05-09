@@ -19,6 +19,7 @@ Building Every block of RAG system for learning
 - **FastAPI Backend**:
   - Load model/service on startup (if using Local LLM)
   - Clean separation of endpoints with router
+  - Rate limit using `slowapi`
 
 ### RAG-Specific Learnings
 - **Document Processing and Chunking Matter**:
