@@ -13,8 +13,7 @@ Building Every block of RAG system for learning
 
 - **Python**: 
   - Modular Design, Isolated components
-  - Easy extending/swapping to vector databases, LLM provider
-  - Gradual adoption of new techniques
+  - Easy extending/swapping to vector databases, LLM provider, features
 
 - **FastAPI Backend**:
   - Load model/service on startup (if using Local LLM)
@@ -24,29 +23,41 @@ Building Every block of RAG system for learning
 ### RAG-Specific Learnings
 - **Document Processing and Chunking Matter**:
   - PyMuPDF4LLM is faster than docling. More to try: Markitdown, MinerU... 
+  - Using LangChain for chunking speeds up the process, as it automatically handles chunking and metadata storage.
   - Header Markdown preserves and gives more context to each chunk and between chunks
+  - Documents like scanned PDFs or image-based files are still a challenge—I haven’t found an efficient solution for handling them yet.
 
 - **Vector DB**:
     - Qdrant has more advanced search and filter
     - Chroma for simplicity and fast for prototype projects
-    - Should try Milvus (pretty much the same as Qdrant for a small-scale project) w
-    - Postgre + PGVector also make a great combo
+    - Should try Milvus (pretty much the same as Qdrant for a small-scale project)
+    - PostgreSQL + PGVector also make a great combo
 
 - **Retrieval Optimization**:
   - Find the embedding model at https://huggingface.co/spaces/mteb/leaderboard
   - Hybrid search (Dense + BM25) (is already in Qdrant). But sometimes metadata filtering then vector search work well
   - Reranking using Cohere API (can switch to local reranker like bge-reranker)
-  - Not always, but Query expansion (rewrite the question into 1 or more) HyDE can work
-  - Caching the most frequent Q&A pair for fast retrieval. Fuzzy matching is enough for my case
+  - Not always, but Query expansion (rewrite the question into 1 or more) HyDE can work. These techniques with Reranking also slows down the pipeline and increases costs. Weigh pros and cons. 
+  - Caching the most frequent Q&A pairs (correct pairs) for fast retrieval. Fuzzy matching is enough for my case
 
 - **Memory**:
-  - Some last messages should be enough for short-term memory. SQLite should be fine
-  - [mem0.ai](https://mem0.ai/) for more sophisticated memory management
+    - Some last messages should be enough for short-term memory. SQLite should be fine
+    - [mem0.ai](https://mem0.ai/) for more sophisticated memory management
 
 - **Evaluation**:
-  - Ragas metrics, use LLM as a Judge. Can also simply use cosine similarity. The final evaluator should be human 
+    - Create a ground truth dataset to benchmark
+  - Use LLM as a Judge or simply use cosine similarity. The final evaluator should be human 
   - Langfuse Tracing. New version of Mlflow can do it too
 
+### My Takeaways
+
+  - You truly learn it when you build it step by step.
+  - Start simple (sometimes it works right away) and establish a baseline. Add one feature at a time and measure its impact.
+  - Ensure the code is flexible enough for future extensions.
+  - Communities like r/rag and r/langchain are incredibly helpful—search around and explore. I've learned a lot from them.
+
+  - For every RAG project, I need to focus on three key areas: preprocessing, retrieval, and evaluation.
+  - As the number of users and documents grows, it's crucial to ensure the application can handle increased traffic and maintain performance.
 
 ## Tech Stack
 
@@ -54,7 +65,7 @@ Building Every block of RAG system for learning
 | Component | Technology | Purpose |
 |-----------|------------|---------|
 | **LLM** | OpenAI GPT-4o-mini | Text Generate |
-| **Embeddings** | OpenAI text-embedding-3-large | Semantic representations |
+| **Embeddings** | OpenAI embedding + Qdrant/BM25  | Embedding representations |
 | **Vector DB** | Qdrant | High-performance vector search |
 | **API Framework** | FastAPI | REST API endpoints |
 | **Document Processing** | PyMuPDF4LLM | PDF-to-Markdown conversion |
@@ -63,7 +74,7 @@ Building Every block of RAG system for learning
 | Component | Technology | Purpose |
 |-----------|------------|---------|
 | **Tracing** | Langfuse | LLM monitoring/tracing |
-| **Evaluation** | Ragas | Retrieval quality metrics |
+| **Evaluation** | LLM as a Judge | Retrieval quality metrics |
 | **Chunking** | Custom LangChain Header Markdown Text Splitters | Document segmentation |
 | **Environment** | Docker | Containerization |
 
