@@ -4,6 +4,8 @@ class Settings(BaseSettings):
     openai_api_key: str
     openai_model: str = "gpt-4o-mini"
     openai_embedding_model: str = "text-embedding-3-large"
+
+    sparse_model: str = 'Qdrant/bm25'
     
     qdrant_url: str =  "localhost:6333"
     # qdrant_api_key: str
