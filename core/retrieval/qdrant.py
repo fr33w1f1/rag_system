@@ -1,4 +1,5 @@
 from qdrant_client import QdrantClient, models
+from langchain.schema import Document
 from typing import List, Dict, Optional
 from config import settings
 from core.retrieval.base import BaseRetriever
@@ -16,7 +17,7 @@ class QdrantRetriever(BaseRetriever):
         self.sparse_embedding_model = SparseTextEmbedding(model_name="Qdrant/bm25")
 
     def create_collection(self):
-        if not client.collection_exists(collection_name=collection_name):
+        if not client.collection_exists(collection_name=self.collection):
             client.create_collection(
                 collection_name=collection_name,
                 vectors_config={
@@ -34,9 +35,10 @@ class QdrantRetriever(BaseRetriever):
         else:
             print(f"Collection '{collection_name}' already exists.")
 
-    def upsert_documents(self, documents: List[str]):
-        dense_embeddings = self.embedding_model.embed(documents)
-        sparse_embeddings = list(self.sparse_embedding_model.embed(documents))
+    def upsert_documents(self, documents: List[Document]):
+        texts = [doc.page_content for doc in documents]
+        dense_embeddings = self.embedding_model.embed(texts)
+        sparse_embeddings = list(self.sparse_embedding_model.embed(texts))
 
         points = []
         for idx, (doc, dense_vec, idx_sparse_vec) in enumerate(zip(documents, dense_embeddings, sparse_embeddings)):
@@ -49,7 +51,7 @@ class QdrantRetriever(BaseRetriever):
                     },
                     payload={
                         "text": doc.page_content,
-                        "source": doc.source
+                        "source": doc.metadata['source']
                         }
                 )
             )

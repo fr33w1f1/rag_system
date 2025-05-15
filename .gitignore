@@ -6,4 +6,4 @@ __pycache__/
 langfuse
 qdrant_storage
 *.ipynb
-*.png
+notebooks/*.png
